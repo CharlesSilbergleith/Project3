@@ -10,6 +10,8 @@ public class MainMenu : MonoBehaviour
 
     public void StartButton() { 
         SceneManager.LoadScene("playWorld");
+        PlayerPrefs.SetFloat("currentScore", 0);
+
 
     }
     public void CreaditsButton() {

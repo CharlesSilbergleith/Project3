@@ -6,6 +6,7 @@ public class UIManger : MonoBehaviour
 {
     public static UIManger Instance;
     public Image health;
+    public TMP_Text highScore;
     public TMP_Text score;
     public TMP_Text ammo;
     public TMP_Text Win;
@@ -28,7 +29,6 @@ public class UIManger : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        GameManger.Instance.reset();
         ScreenUpdate();
         Win.enabled = false;
         Die.enabled = false;
@@ -45,6 +45,8 @@ public class UIManger : MonoBehaviour
     }
     public void ScreenUpdate() {
         score.text = "Score: " + GameManger.Instance.score;
+        highScore.text = "HighScore: " + PlayerPrefs.GetFloat("highScore", 0);
         Life.text = "Life: "+ GameManger.Instance.lives;
+        
     }
 }

@@ -17,6 +17,7 @@ public class SFXManger : MonoBehaviour
     public AudioSource audioSource;
     public Pawn pawn;
     
+    
     void Awake()
     {
         if (Instance == null)

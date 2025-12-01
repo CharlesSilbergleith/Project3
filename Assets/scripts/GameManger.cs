@@ -38,9 +38,9 @@ public class GameManger : MonoBehaviour
 
 
         lives = 3;
+        score = PlayerPrefs.GetFloat("currentScore", 0);
 
-
-        }
+    }
        
     
 
@@ -51,6 +51,7 @@ public class GameManger : MonoBehaviour
     void Start()
     {
         UIManger.Instance.ScreenUpdate();
+
         
 
     }
@@ -75,14 +76,14 @@ public class GameManger : MonoBehaviour
     }
     public void gameEnd()
     {
-        //Debug.Log("End");
-        //StartCoroutine(LoadNextSceneAfterDelay(3f));
+        Debug.Log("End");
+        StartCoroutine(LoadNextSceneAfterDelay(3f));
     }
 
-    /*
+    
     private IEnumerator LoadNextSceneAfterDelay(float delay)
     {
-        // Optional: pause the game
+
         Time.timeScale = 0f;
 
         // Wait 3 real seconds (unaffected by pause)
@@ -94,35 +95,35 @@ public class GameManger : MonoBehaviour
         // Load next scene
         if (!win)
         {
-//SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("MainMenu");
         }
         else { 
-           // SceneManager.LoadScene("playWorld");
+           SceneManager.LoadScene("playWorld");
         }
 
            
     }
-    */
+    
 
     void gameWin() {
-       // UIManger.Instance.Win.enabled = true;
+        UIManger.Instance.Win.enabled = true;
         win = true;
-        
-        //Debug.Log("You WIn good job..... reword...... what wining not enough.... greedy");
+        PlayerPrefs.SetFloat("currentScore", score);
+        Debug.Log("You WIn good job..... reword...... what wining not enough.... greedy");
     }
     public void gameLose() {
         UIManger.Instance.Die.enabled = true;
         win = false;
-        //Debug.Log("HA you suck... like holy shit that was bad..... do better");
+        Debug.Log("HA you suck... like holy shit that was bad..... do better");
         score = 0;
         lives = 3;
+        PlayerPrefs.SetFloat("currentScore", 0);
 
     }
-    public void reset() { 
-        score = 0;
-    }
+   
     public void scorePlus() {
         score++;
+        checkHighScore();
         UIManger.Instance.ScreenUpdate();
     }
     public void scorePlus(int value)
@@ -130,5 +131,10 @@ public class GameManger : MonoBehaviour
         score+= value;
         UIManger.Instance.ScreenUpdate();
     }
-
+    public void checkHighScore() {
+        if (score > PlayerPrefs.GetFloat("highScore",0))
+        {
+            PlayerPrefs.SetFloat("highScore", score);
+        }
+    }
 }
